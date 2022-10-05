@@ -149,29 +149,19 @@ void rightAnmachen()
     digitalWrite(dirL,LOW);  //oder andersrum
     digitalWrite(dirR,LOW);  //oder andersrum
 
+    //Ativiert die wichtigen Ultraschalsensoren
+    frontAnmachen();
+    backAus();
+    leftAus();
+    rightAus();
 
+    
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
     {    
         if (digitalRead(5) == LOW)
         {
-/*          if(stepsDone < accelerationPhase && stepsDone <= steps/2) // Acceleration
-          {
-            a = 100 * 0.0025 *(100 - stepsDone);
-            //Serial.println("+");
-            //Serial.println(stepsDone);
-            //Serial.println(a);
-            
-          }
-  
-          if (steps - stepsDone < accelerationPhase && stepsDone > steps / 2) // Decceleration
-          {
-            a = 100 * 0.0025 * (100 - (steps - stepsDone));
-            //Serial.println("-");
-            //Serial.println(stepsDone);
-            //Serial.println(a);
-          }
-*/  
 
+// gain Speed
           if (speed == 0){
             MotorAn = stepsDone * 0.5;
             if (MotorAn > t)
@@ -184,14 +174,164 @@ void rightAnmachen()
 
 
           digitalWrite(stepL,HIGH);
-          digitalWrite(stepR,HIGH); 
+          digitalWrite(stepR,HIGH);
           delayMicroseconds(MotorAn);
           digitalWrite(stepL,LOW);
           digitalWrite(stepR,LOW);
           delayMicroseconds(MotorAus);
-//          delayMicroseconds(t + a);
-          Serial.println(t+a);
         }
+
+        // wird ausgeführt wenn ein Hindernis erkannt wird
+        else {
+          speed = 0;
+          stepsDone = stepsDone - 1;
+          delayMicroseconds(100);
+          }
+              
+    }
+ }
+
+
+
+ 
+ void driveBackwards(int steps)
+ {
+    int speed = 0;
+    int a = 0; 
+    float MotorAn;
+    float MotorAus;
+    
+    digitalWrite(enableR,LOW); //oder low, habs vergessen
+    digitalWrite(enableL,LOW); //oder low, habs vergessen
+
+    digitalWrite(dirL,HIGH);  //oder andersrum
+    digitalWrite(dirR,HIGH);  //oder andersrum
+
+    //Ativiert die wichtigen Ultraschalsensoren
+    backAnmachen();
+    frontAus();
+    leftAus();
+    rightAus();
+
+    
+    for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
+    {    
+        if (digitalRead(5) == LOW)
+        {
+
+// gain Speed
+          if (speed == 0){
+            MotorAn = stepsDone * 0.5;
+            if (MotorAn > t)
+            { 
+                MotorAn = t;
+                speed = 1;
+            }
+            MotorAus = (1.2*t) - MotorAn;
+          }
+
+
+          digitalWrite(stepL,HIGH);
+          digitalWrite(stepR,HIGH);
+          delayMicroseconds(MotorAn);
+          digitalWrite(stepL,LOW);
+          digitalWrite(stepR,LOW);
+          delayMicroseconds(MotorAus);
+        }
+
+        // wird ausgeführt wenn ein Hindernis erkannt wird
+        else {
+          speed = 0;
+          stepsDone = stepsDone - 1;
+          delayMicroseconds(100);
+          }
+              
+    }
+ }
+ 
+
+
+ 
+ void turnLeft(int steps)
+ {
+    int speed = 0;
+    int a = 0; 
+    float MotorAn;
+    float MotorAus;
+    
+    digitalWrite(enableR,LOW); //oder low, habs vergessen
+    digitalWrite(enableL,LOW); //oder low, habs vergessen
+
+    digitalWrite(dirL,HIGH);  //oder andersrum
+    digitalWrite(dirR,LOW);  //oder andersrum
+
+    //Ativiert die wichtigen Ultraschalsensoren
+    frontAnmachen();
+    rightAnmachen();
+    backAus();
+    leftAus();
+
+
+    
+    for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
+    {    
+        if (digitalRead(5) == LOW)
+        {
+          digitalWrite(stepL,HIGH);
+          digitalWrite(stepR,HIGH);
+          delayMicroseconds(100);
+          digitalWrite(stepL,LOW);
+          digitalWrite(stepR,LOW);
+          delayMicroseconds(100);
+        }
+
+        // wird ausgeführt wenn ein Hindernis erkannt wird
+        else {
+          speed = 0;
+          stepsDone = stepsDone - 1;
+          delayMicroseconds(100);
+          }
+              
+    }
+ }
+
+
+
+ 
+ void turnRight(int steps)
+ {
+    int speed = 0;
+    int a = 0; 
+    float MotorAn;
+    float MotorAus;
+    
+    digitalWrite(enableR,LOW); //oder low, habs vergessen
+    digitalWrite(enableL,LOW); //oder low, habs vergessen
+
+    digitalWrite(dirL,LOW);  //oder andersrum
+    digitalWrite(dirR,HIGH);  //oder andersrum
+
+    //Ativiert die wichtigen Ultraschalsensoren
+    frontAnmachen();
+    leftAnmachen();
+    backAus();
+    rightAus();
+
+
+    
+    for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
+    {    
+        if (digitalRead(5) == LOW)
+        {
+          digitalWrite(stepL,HIGH);
+          digitalWrite(stepR,HIGH);
+          delayMicroseconds(100);
+          digitalWrite(stepL,LOW);
+          digitalWrite(stepR,LOW);
+          delayMicroseconds(100);
+        }
+
+        // wird ausgeführt wenn ein Hindernis erkannt wird
         else {
           speed = 0;
           stepsDone = stepsDone - 1;
