@@ -65,11 +65,14 @@ void loop()
   driveForward(2000);
 
 */
-  delay(1000);
-  backAus();
-  delay(4000);
-  backAnmachen();
-  delay(3000);
+delay(3);
+driveForward(1000);
+delay(3);
+turnLeft(200);
+delay(3);
+turnRight(200);
+delay(3);
+driveBackwards(1000);
 }
 
 
