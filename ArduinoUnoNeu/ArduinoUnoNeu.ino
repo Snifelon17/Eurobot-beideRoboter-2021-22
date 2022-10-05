@@ -52,10 +52,10 @@ long entfernungR = 0;
 
 
 
-int enabledF = true;
-int enabledB = true;
-int enabledR = true;
-int enabledL = true;
+boolean enabledF = true;
+boolean enabledB = true;
+boolean enabledR = true;
+boolean enabledL = true;
  
 
 void setup() 
@@ -81,11 +81,16 @@ void setup()
 void loop() {
   checkFront();
   checkBack();
-  checkLeft();
+  //checkLeft();
   //checkRight();
-  //checkStatus();
+  checkStatus();
   //Serial.println("Check") ; 
-  delay(500);
+  //delay(500);
+  //Serial.print(enabledF);
+ // Serial.print(enabledB);
+  //Serial.print(enabledL);
+  //Serial.println(enabledR);
+  delay(10);
   //Serial.println(enabledB);
 
 }
@@ -99,40 +104,49 @@ void checkStatus()
     {
       int empfangen = Serial.read();
       //Serial.println(empfangen);
-      if(empfangen == 1)
+      if(empfangen == 5)
       {
-          enabledF = false;  
+          enabledF = false;
+          Serial.println("F ausgemacht");  
       }
-      else if(empfangen == 2)
+      if(empfangen == 6)
       {
-          enabledB = false;  
+          enabledB = false;
+          Serial.println("B ausgemacht");  
       }
-      else if(empfangen == 3)
+      if(empfangen == 3)
       {
           enabledL = false;  
+          Serial.println("L ausgemacht");
       }
-      else if(empfangen == 4)
+      if(empfangen == 4)
       {
           enabledR = false;  
+          Serial.println("R ausgemacht");
       }
 
 
-      else if(empfangen == 11)
+      if(empfangen == 15)
       {
-          enabledF = true;  
+          enabledF = true; 
+          Serial.println("F angemacht"); 
       }
-      else if(empfangen == 12)
+      if(empfangen == 16)
       {
-          enabledB = true;  
+          enabledB = true; 
+          Serial.println("B angemacht");
       }
-      else if(empfangen == 13)
+      if(empfangen == 13)
       {
           enabledL = true;  
+          Serial.println("L angemacht");
       }
-      else if(empfangen == 14)
+      if(empfangen == 14)
       {
           enabledR = true;  
+          Serial.println("R angemacht");
       }
+      
        
     }
 }
@@ -153,7 +167,7 @@ void checkFront()
   digitalWrite(triggerF, LOW);
   dauerF = pulseIn (echoF, HIGH);
   entfernungF = dauerF/2*0.03432;
-  Serial.println (entfernungF);
+  //Serial.println (entfernungF);
 
   if (entfernungF < 30 && enabledF == true)
   {
@@ -182,7 +196,7 @@ void checkBack()
   digitalWrite(triggerB, LOW);
   dauerB = pulseIn (echoB, HIGH);
   entfernungB = dauerB/2*0.03432;
-  Serial.println (entfernungB);
+  //Serial.println (entfernungB);
 
   if (entfernungB < 30 && enabledB == true)
   {
@@ -211,7 +225,7 @@ void checkLeft()
   digitalWrite(triggerL, LOW);
   dauerL = pulseIn (echoL, HIGH);
   entfernungL = dauerL/2*0.03432;
-  Serial.println (entfernungL);
+  //Serial.println (entfernungL);
 
   if (entfernungL < 30 && enabledL == true)
   {
