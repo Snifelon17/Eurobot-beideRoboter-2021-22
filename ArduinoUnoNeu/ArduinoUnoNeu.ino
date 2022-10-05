@@ -10,14 +10,14 @@ R = right
 #include <math.h>
 
 
-#define triggerF 1 //Change
-#define echoF 2    //Change
+#define triggerF 6 //Change
+#define echoF 4    //Change
 
 #define triggerB 10 //Change
 #define echoB 8    //Change
 
 #define triggerR 5 //Change
-#define echoR 6    //Change
+#define echoR 100    //Change
 
 #define triggerL 9 //Change
 #define echoL 7    //Change
@@ -79,14 +79,14 @@ void setup()
 }
 
 void loop() {
-  //checkFront();
-  //checkBack();
-  //checkLeft();
+  checkFront();
+  checkBack();
+  checkLeft();
   //checkRight();
-  checkStatus();
+  //checkStatus();
   //Serial.println("Check") ; 
-  delay(50);
-  Serial.println(enabledB);
+  delay(500);
+  //Serial.println(enabledB);
 
 }
 
@@ -182,7 +182,7 @@ void checkBack()
   digitalWrite(triggerB, LOW);
   dauerB = pulseIn (echoB, HIGH);
   entfernungB = dauerB/2*0.03432;
-  //Serial.println (entfernungB);
+  Serial.println (entfernungB);
 
   if (entfernungB < 30 && enabledB == true)
   {
