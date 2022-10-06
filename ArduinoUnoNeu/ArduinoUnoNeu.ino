@@ -54,7 +54,7 @@ long entfernungR = 0;
 
 boolean enabledF = true;
 boolean enabledB = true;
-boolean enabledR = true;
+boolean enabledR = false;
 boolean enabledL = true;
  
 
@@ -79,8 +79,8 @@ void setup()
 }
 
 void loop() {
-  checkFront();
-  checkBack();
+  //checkFront();
+  //checkBack();
   //checkLeft();
   //checkRight();
   checkStatus();
@@ -100,14 +100,14 @@ void loop() {
 
 void checkStatus()
 {
-    if (Serial.available() > 0)
-    {
+    //if (Serial.available() > 0)
+    //{
       int empfangen = Serial.read();
       //Serial.println(empfangen);
       if(empfangen == 5)
       {
           enabledF = false;
-          Serial.println("F ausgemacht");  
+          //Serial.println("F ausgemacht");  
       }
       if(empfangen == 6)
       {
@@ -134,21 +134,21 @@ void checkStatus()
       if(empfangen == 16)
       {
           enabledB = true; 
-          Serial.println("B angemacht");
+          //Serial.println("B angemacht");
       }
       if(empfangen == 13)
       {
           enabledL = true;  
-          Serial.println("L angemacht");
+          //Serial.println("L angemacht");
       }
       if(empfangen == 14)
       {
-          enabledR = true;  
-          Serial.println("R angemacht");
+          //enabledR = true;  
+          //Serial.println("R angemacht");
       }
       
        
-    }
+    //}
 }
 
 
@@ -167,7 +167,7 @@ void checkFront()
   digitalWrite(triggerF, LOW);
   dauerF = pulseIn (echoF, HIGH);
   entfernungF = dauerF/2*0.03432;
-  //Serial.println (entfernungF);
+  Serial.println (entfernungF);
 
   if (entfernungF < 30 && enabledF == true)
   {
@@ -196,7 +196,7 @@ void checkBack()
   digitalWrite(triggerB, LOW);
   dauerB = pulseIn (echoB, HIGH);
   entfernungB = dauerB/2*0.03432;
-  //Serial.println (entfernungB);
+  Serial.println (entfernungB);
 
   if (entfernungB < 30 && enabledB == true)
   {
@@ -225,7 +225,7 @@ void checkLeft()
   digitalWrite(triggerL, LOW);
   dauerL = pulseIn (echoL, HIGH);
   entfernungL = dauerL/2*0.03432;
-  //Serial.println (entfernungL);
+  Serial.println (entfernungL);
 
   if (entfernungL < 30 && enabledL == true)
   {

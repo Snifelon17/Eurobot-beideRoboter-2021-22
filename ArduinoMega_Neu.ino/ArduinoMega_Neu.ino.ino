@@ -54,27 +54,28 @@ void setup() //Hier beginnt das Setup.
 
 void loop() 
 {
-  /*servoArm.write(180); // Turn Servo Left to 0 degrees
-  delay(500);
-  driveForward(1000);
-  delay(500);
-  servoArm.write(180); // Turn Servo Left to 0 degrees
-  delay(500);
-  servoArm.write(90); // Turn Servo Left to 0 degrees
-  delay(500);
-  driveForward(2000);
 
-*/
-delay(3000);
-//Serial.println("Fahre los");
-delay(3000);
-driveForward(1000);
-delay(3000);
-//turnLeft(200);
-//delay(3000);
-//turnRight(200);
-//delay(3000);
-driveBackwards(1000);
+  /*delay(3000);
+  driveForward(1000);
+  delay(3000);
+  turnLeft(200);
+  delay(3000);
+  turnRight(200);
+  delay(3000);
+  driveBackwards(1000);
+  */
+
+    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
+    frontAnmachen();
+    delay(100);
+    backAus();
+    delay(100);
+    leftAus();
+    delay(100);
+    rightAus();
+
+    delay(5000);
+  
 }
 
 
@@ -143,6 +144,16 @@ void rightAnmachen()
 
  void driveForward(int steps)
  {
+    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
+    frontAnmachen();
+    delay(100);
+    backAus();
+    delay(100);
+    leftAus();
+    delay(100);
+    rightAus();
+    
+    
     int speed = 0;
     int a = 0; 
     float MotorAn;
@@ -154,15 +165,8 @@ void rightAnmachen()
     digitalWrite(dirL,LOW);  //oder andersrum
     digitalWrite(dirR,LOW);  //oder andersrum
 
-    //Ativiert die wichtigen Ultraschalsensoren
-    frontAnmachen();
-    delay(100);
-    backAus();
-    delay(100);
-    leftAus();
-    delay(100);
-    rightAus();
-    delay(5000);
+    
+    
 
     
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
@@ -205,6 +209,17 @@ void rightAnmachen()
  
  void driveBackwards(int steps)
  {
+    
+
+    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
+    backAnmachen();
+    delay(100);
+    frontAus();
+    delay(100);
+    leftAus();
+    delay(100);
+    rightAus();
+    
     int speed = 0;
     int a = 0; 
     float MotorAn;
@@ -216,16 +231,8 @@ void rightAnmachen()
     digitalWrite(dirL,HIGH);  //oder andersrum
     digitalWrite(dirR,HIGH);  //oder andersrum
 
-    //Ativiert die wichtigen Ultraschalsensoren
-    delay(1000);
-    backAnmachen();
-    delay(1000);
-    frontAus();
-    delay(1000);
-    leftAus();
-    delay(1000);
-    rightAus();
-    delay(1000);
+    
+   
     
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
     {    
@@ -267,6 +274,17 @@ void rightAnmachen()
  
  void turnLeft(int steps)
  {
+
+    
+    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
+    frontAnmachen();
+    delay(100);
+    rightAnmachen();
+    delay(100);
+    backAus();
+    delay(100);
+    leftAus();
+    
     int speed = 0;
     int a = 0; 
     float MotorAn;
@@ -278,11 +296,8 @@ void rightAnmachen()
     digitalWrite(dirL,HIGH);  //oder andersrum
     digitalWrite(dirR,LOW);  //oder andersrum
 
-    //Ativiert die wichtigen Ultraschalsensoren
-    frontAnmachen();
-    rightAnmachen();
-    backAus();
-    leftAus();
+    
+    
 
 
     
@@ -290,6 +305,7 @@ void rightAnmachen()
     {    
         if (digitalRead(5) == LOW)
         {
+          Serial.println("STEP");
           digitalWrite(stepL,HIGH);
           digitalWrite(stepR,HIGH);
           delayMicroseconds(100);
@@ -313,6 +329,16 @@ void rightAnmachen()
  
  void turnRight(int steps)
  {
+  
+    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
+    frontAnmachen();
+    delay(100);
+    leftAnmachen();
+    delay(100);
+    backAus();
+    delay(100);
+    rightAus();
+  
     int speed = 0;
     int a = 0; 
     float MotorAn;
@@ -324,11 +350,8 @@ void rightAnmachen()
     digitalWrite(dirL,LOW);  //oder andersrum
     digitalWrite(dirR,HIGH);  //oder andersrum
 
-    //Ativiert die wichtigen Ultraschalsensoren
-    frontAnmachen();
-    leftAnmachen();
-    backAus();
-    rightAus();
+    
+    
 
 
     
@@ -336,6 +359,7 @@ void rightAnmachen()
     {    
         if (digitalRead(5) == LOW)
         {
+          Serial.println("STEP");
           digitalWrite(stepL,HIGH);
           digitalWrite(stepR,HIGH);
           delayMicroseconds(100);
