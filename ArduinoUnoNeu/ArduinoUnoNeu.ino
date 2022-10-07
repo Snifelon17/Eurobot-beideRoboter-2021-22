@@ -57,11 +57,6 @@ long entfernungR = 0;
 
 
 
-
-boolean enabledF = true;
-boolean enabledB = true;
-boolean enabledR = false;
-boolean enabledL = true;
  
 
 void setup() 
@@ -89,7 +84,7 @@ void loop() {
   checkFront();
   checkBack();
   checkLeft();
-  //checkRight();
+  checkRight();
   delay(100);
 
 }
@@ -114,7 +109,7 @@ void checkFront()
   entfernungF = dauerF/2*0.03432;
   Serial.println (entfernungF);
 
-  if (entfernungF < 10 && enabledF == true)
+  if (entfernungF < 10)
   {
     digitalWrite(comF, HIGH);
     delay(10);
@@ -200,7 +195,7 @@ void checkRight()
   entfernungR = dauerR/2*0.03432;
   Serial.println (entfernungR);
 
-  if (entfernungR < 10 && enabledR == true)
+  if (entfernungR < 10 )
   {
     digitalWrite(comR, HIGH);
     delay(10);
