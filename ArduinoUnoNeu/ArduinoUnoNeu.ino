@@ -25,9 +25,10 @@ R = right
 //#define datetransfer 11 // 11, aber zu deaktivierung auf 15 geändert
 
 #define comF 11
-#define comB 13
-#define comL 3
+#define comB 3
+#define comL 2
 #define comR 2
+
 
 // Init Supersonice front
 
@@ -85,11 +86,11 @@ void setup()
 
 void loop() {
   
-  //checkFront();
-  //checkBack();
+  checkFront();
+  checkBack();
   checkLeft();
   //checkRight();
-  delay(10);
+  delay(100);
 
 }
 
@@ -152,6 +153,8 @@ void checkBack()
   else
   {
       digitalWrite(comB, LOW);
+      Serial.println("Entwarnung");
+      
   }
     
 }

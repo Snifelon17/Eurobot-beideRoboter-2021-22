@@ -12,9 +12,9 @@
 #define dirR 29
 
 
-#define comF 7
-#define comB 6
-#define comL 5
+#define comF 6
+#define comB 5
+#define comL 4
 #define comR 4
 
 int t = 100; //ms Pause
@@ -60,6 +60,10 @@ void loop()
 {
 
   driveForward(2000);
+  delay(3000);
+  driveBackwards(2000);
+  delay(3000);
+  turnLeft(5000);
   delay(3000);
   
 }
@@ -156,7 +160,7 @@ void updateAlarm()
     digitalWrite(dirR,LOW);  //oder andersrum
 
     
-    
+    Serial.println(digitalRead(comF));
 
     
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
@@ -188,7 +192,7 @@ void updateAlarm()
         else {
           speed = 0;
           stepsDone = stepsDone - 1;
-          delayMicroseconds(100);
+          delay(100);
           }
               
     }
@@ -244,7 +248,7 @@ void updateAlarm()
         else {
           speed = 0;
           stepsDone = stepsDone - 1;
-          delayMicroseconds(100);
+          delay(100);
           }
               
     }
@@ -275,7 +279,7 @@ void updateAlarm()
     
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
     {    
-        if (digitalRead(7) == LOW)
+        if (digitalRead(comF) == LOW && digitalRead(comL) == LOW)
         {
           Serial.println("STEP");
           digitalWrite(stepL,HIGH);
@@ -290,7 +294,7 @@ void updateAlarm()
         else {
           speed = 0;
           stepsDone = stepsDone - 1;
-          delayMicroseconds(100);
+          delay(100);
           }
               
     }
@@ -336,7 +340,7 @@ void updateAlarm()
         else {
           speed = 0;
           stepsDone = stepsDone - 1;
-          delayMicroseconds(100);
+          delay(100);
           }
               
     }
