@@ -22,7 +22,7 @@ R = right
 #define triggerL 9 //Change
 #define echoL 7    //Change
 
-#define datetransfer 11
+#define datetransfer 11 // 11, aber zu deaktivierung auf 15 geändert
 
 #define readF 3
 #define readB 6
@@ -89,14 +89,7 @@ void loop() {
   //checkLeft();
   //checkRight();
   checkStatus();
-  //Serial.println("Check") ; 
-  //delay(500);
-  //Serial.print(enabledF);
- // Serial.print(enabledB);
-  //Serial.print(enabledL);
-  //Serial.println(enabledR);
   delay(10);
-  //Serial.println(enabledB);
 
 }
 
