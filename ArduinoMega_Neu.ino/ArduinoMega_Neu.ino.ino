@@ -12,7 +12,7 @@
 #define dirR 29
 
 
-#define comF 11
+#define comF 15
 #define comB 12
 #define comL 13
 #define comR 14
@@ -23,17 +23,6 @@ int accelerationNummer = 0.0025;      //multiplikator
 int stepsDone = 0;
 int i = 0;                              //test
 
-/*int front = 5;
-int back = 6;
-int left = 3;
-int right = 4;
-
-
-int frontAn = 15;
-int backAn = 16;
-int leftAn = 13;
-int rightAn = 14;
-*/
 
 Servo servoArm;
 Servo servoWuerfel;// Define our Servo
@@ -52,7 +41,7 @@ void setup() //Hier beginnt das Setup.
   digitalWrite(enableR,HIGH); //oder low, habs vergessen
   digitalWrite(enableL,HIGH); //oder low, habs vergessen
 
-  servoWuerfel.attach(11); // servo on digital pin 10
+  servoWuerfel.attach(11); // servo on digital pin 11
   servoArm.attach(10); // servo on digital pin 10
 }
 
@@ -70,7 +59,7 @@ void loop()
 
 
 // Wenn der pin HIIGH is, ist der dazugehörige Ultraschallsensor aktiviert...
-////////////////////////////////////////////////////// AUS /////////////////////////////////////////////
+////////////////////////////////////////////////////// AN /////////////////////////////////////////////
 
 
 
@@ -96,7 +85,7 @@ void rightAn()
 }
 
 
-
+////////////////////////////////////////////////////AUS //////////////////////////////////////////////////////////
 
 void frontAus()
 {
@@ -118,9 +107,6 @@ void rightAus()
 {
   digitalWrite(comB, LOW);
 } 
-
-
-////////////////////////////////////////////////////AN //////////////////////////////////////////////////////////
 
 
 

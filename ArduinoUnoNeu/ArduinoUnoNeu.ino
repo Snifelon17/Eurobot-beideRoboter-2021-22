@@ -17,12 +17,17 @@ R = right
 #define echoB 8    //Change
 
 #define triggerR 5 //Change
-#define echoR 100    //Change
+#define echoR 12    //Change
 
 #define triggerL 9 //Change
 #define echoL 7    //Change
 
 #define datetransfer 11
+
+#define readF 3
+#define readB 6
+#define readL 13
+#define readR 14
 
 // Init Supersonice front
 
@@ -100,55 +105,69 @@ void loop() {
 
 void checkStatus()
 {
-    //if (Serial.available() > 0)
-    //{
-      int empfangen = Serial.read();
-      //Serial.println(empfangen);
-      if(empfangen == 5)
-      {
-          enabledF = false;
-          //Serial.println("F ausgemacht");  
-      }
-      if(empfangen == 6)
-      {
-          enabledB = false;
-          Serial.println("B ausgemacht");  
-      }
-      if(empfangen == 3)
-      {
-          enabledL = false;  
-          Serial.println("L ausgemacht");
-      }
-      if(empfangen == 4)
-      {
-          enabledR = false;  
-          Serial.println("R ausgemacht");
-      }
+  
+  //Check welche auf AN gestellt werden
+
+  if(digitalRead(readF) == HIGH)
+  {
+   
+    enabledF = true;
+    
+  }  
+
+  if(digitalRead(readB) == HIGH)
+  {
+   
+    enabledB = true;
+
+  }  
+    
+  if(digitalRead(readL) == HIGH)
+  {
+   
+    enabledL = true;
+
+  }  
+    
+  if(digitalRead(readR) == HIGH)
+  {
+   
+    enabledR = true;
+
+  }  
+  
+
+  ///////////////////////// Check welche auf Aus gestellt werden ////////////////////////////////
+
+  if(digitalRead(readF) == LOW)
+  {
+   
+    enabledF = false;
+    
+  }  
+
+  if(digitalRead(readB) == LOW)
+  {
+   
+    enabledB = false;
+
+  }  
+    
+  if(digitalRead(readL) == LOW)
+  {
+   
+    enabledL = false;
+
+  }  
+    
+  if(digitalRead(readR) ==LOW)
+  {
+   
+    enabledR = false;
+
+  }  
 
 
-      if(empfangen == 15)
-      {
-          enabledF = true; 
-          Serial.println("F angemacht"); 
-      }
-      if(empfangen == 16)
-      {
-          enabledB = true; 
-          //Serial.println("B angemacht");
-      }
-      if(empfangen == 13)
-      {
-          enabledL = true;  
-          //Serial.println("L angemacht");
-      }
-      if(empfangen == 14)
-      {
-          //enabledR = true;  
-          //Serial.println("R angemacht");
-      }
-      
-       
-    //}
 }
 
 
