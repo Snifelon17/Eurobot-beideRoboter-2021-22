@@ -17,9 +17,7 @@
 #define comL 4
 #define comR 4
 
-int t = 100; //ms Pause
-int accelerationPhase = 100;          // die 100 ersten Steps
-int accelerationNummer = 0.0025;      //multiplikator
+int t = 80; //ms Pause  
 int stepsDone = 0;
 int i = 0;                              //test
 
@@ -61,10 +59,10 @@ void loop()
 
   driveForward(2000);
   delay(3000);
-  driveBackwards(2000);
-  delay(3000);
-  turnLeft(5000);
-  delay(3000);
+  // driveBackwards(2000);
+  // delay(3000);
+  // turnLeft(5000);
+  // delay(3000);
   
 }
 
@@ -147,11 +145,8 @@ void updateAlarm()
  void driveForward(int steps)
  {
     
-    
-    int speed = 0;
+    int accelerationPhase = 200;          // die 100 ersten Steps
     int a = 0; 
-    float MotorAn;
-    float MotorAus;
     
     digitalWrite(enableR,LOW); //oder low, habs vergessen
     digitalWrite(enableL,LOW); //oder low, habs vergessen
@@ -168,31 +163,24 @@ void updateAlarm()
         if (digitalRead(comF) == LOW)   //Wenn vorne kein Alarm ist
         {
 
-// gain Speed
-          if (speed == 0){
-            MotorAn = stepsDone * 0.5;
-            if (MotorAn > t)
-            { 
-                MotorAn = t;
-                speed = 1;
-            }
-            MotorAus = (1.2*t) - MotorAn;
-          }
-
           Serial.println("STEP");
           digitalWrite(stepL,HIGH);
           digitalWrite(stepR,HIGH);
-          delayMicroseconds(MotorAn);
+          delayMicroseconds(t+accelerationPhase);
+          if (accelerationPhase > 0) 
+          {
+              accelerationPhase--;              
+          }
           digitalWrite(stepL,LOW);
           digitalWrite(stepR,LOW);
-          delayMicroseconds(MotorAus);
+          delayMicroseconds(t+accelerationPhase);
         }
 
         // wird ausgeführt wenn ein Hindernis erkannt wird
         else {
-          speed = 0;
+          accelerationPhase = 200; 
           stepsDone = stepsDone - 1;
-          delay(100);
+          delay(10);
           }
               
     }
@@ -205,10 +193,8 @@ void updateAlarm()
  {
     
     
-    int speed = 0;
+    int accelerationPhase = 200; 
     int a = 0; 
-    float MotorAn;
-    float MotorAus;
     
     digitalWrite(enableR,LOW); //oder low, habs vergessen
     digitalWrite(enableL,LOW); //oder low, habs vergessen
@@ -224,31 +210,24 @@ void updateAlarm()
         if (digitalRead(comB) == LOW)
         {
 
-// gain Speed
-          if (speed == 0){
-            MotorAn = stepsDone * 0.5;
-            if (MotorAn > t)
-            { 
-                MotorAn = t;
-                speed = 1;
-            }
-            MotorAus = (1.2*t) - MotorAn;
-          }
-
           Serial.println("STEP");
           digitalWrite(stepL,HIGH);
           digitalWrite(stepR,HIGH);
-          delayMicroseconds(MotorAn);
+          delayMicroseconds(t+accelerationPhase);
+          if (accelerationPhase > 0) 
+          {
+              accelerationPhase--;              
+          }
           digitalWrite(stepL,LOW);
           digitalWrite(stepR,LOW);
-          delayMicroseconds(MotorAus);
+          delayMicroseconds(t+accelerationPhase);
         }
 
         // wird ausgeführt wenn ein Hindernis erkannt wird
         else {
-          speed = 0;
           stepsDone = stepsDone - 1;
-          delay(100);
+          delay(10);
+          int accelerationPhase = 200; 
           }
               
     }
@@ -261,10 +240,8 @@ void updateAlarm()
  {
 
         
-    int speed = 0;
+    int accelerationPhase = 200; 
     int a = 0; 
-    float MotorAn;
-    float MotorAus;
     
     digitalWrite(enableR,LOW); //oder low, habs vergessen
     digitalWrite(enableL,LOW); //oder low, habs vergessen
@@ -284,17 +261,21 @@ void updateAlarm()
           Serial.println("STEP");
           digitalWrite(stepL,HIGH);
           digitalWrite(stepR,HIGH);
-          delayMicroseconds(100);
+          delayMicroseconds(t+accelerationPhase);
+          if (accelerationPhase > 0) 
+          {
+              accelerationPhase--;              
+          }
           digitalWrite(stepL,LOW);
           digitalWrite(stepR,LOW);
-          delayMicroseconds(100);
+          delayMicroseconds(t+accelerationPhase);
         }
 
         // wird ausgeführt wenn ein Hindernis erkannt wird
         else {
-          speed = 0;
+          int accelerationPhase = 200; 
           stepsDone = stepsDone - 1;
-          delay(100);
+          delay(10);
           }
               
     }
@@ -307,10 +288,8 @@ void updateAlarm()
  {
   
   
-    int speed = 0;
+    int accelerationPhase = 200; 
     int a = 0; 
-    float MotorAn;
-    float MotorAus;
     
     digitalWrite(enableR,LOW); //oder low, habs vergessen
     digitalWrite(enableL,LOW); //oder low, habs vergessen
@@ -330,15 +309,19 @@ void updateAlarm()
           Serial.println("STEP");
           digitalWrite(stepL,HIGH);
           digitalWrite(stepR,HIGH);
-          delayMicroseconds(100);
+          delayMicroseconds(t+accelerationPhase);
+          if (accelerationPhase > 0) 
+          {
+              accelerationPhase--;              
+          }
           digitalWrite(stepL,LOW);
           digitalWrite(stepR,LOW);
-          delayMicroseconds(100);
+          delayMicroseconds(t+accelerationPhase);
         }
 
         // wird ausgeführt wenn ein Hindernis erkannt wird
         else {
-          speed = 0;
+          int accelerationPhase = 200; 
           stepsDone = stepsDone - 1;
           delay(100);
           }
