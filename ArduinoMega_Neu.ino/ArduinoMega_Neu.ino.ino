@@ -12,7 +12,10 @@
 #define dirR 29
 
 
-
+#define comF 11
+#define comB 12
+#define comL 13
+#define comR 14
 
 int t = 100; //ms Pause
 int accelerationPhase = 100;          // die 100 ersten Steps
@@ -20,7 +23,7 @@ int accelerationNummer = 0.0025;      //multiplikator
 int stepsDone = 0;
 int i = 0;                              //test
 
-int front = 5;
+/*int front = 5;
 int back = 6;
 int left = 3;
 int right = 4;
@@ -30,6 +33,7 @@ int frontAn = 15;
 int backAn = 16;
 int leftAn = 13;
 int rightAn = 14;
+*/
 
 Servo servoArm;
 Servo servoWuerfel;// Define our Servo
@@ -55,26 +59,7 @@ void setup() //Hier beginnt das Setup.
 void loop() 
 {
 
-  /*delay(3000);
-  driveForward(1000);
-  delay(3000);
-  turnLeft(200);
-  delay(3000);
-  turnRight(200);
-  delay(3000);
-  driveBackwards(1000);
-  */
-
-    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
-    frontAnmachen();
-    delay(100);
-    backAus();
-    delay(100);
-    leftAus();
-    delay(100);
-    rightAus();
-
-    delay(5000);
+  
   
 }
 
@@ -84,13 +69,38 @@ void loop()
  ///////////////////////////////////////////////////////////////////
 
 
-
+// Wenn der pin HIIGH is, ist der dazugehörige Ultraschallsensor aktiviert...
 ////////////////////////////////////////////////////// AUS /////////////////////////////////////////////
+
+
+
+void frontAn()
+{
+    digitalWrite(comF, HIGH);
+  
+}
+
+void backAn()
+{
+  digitalWrite(comB, HIGH);
+}
+
+void leftAn()
+{
+  digitalWrite(comL, HIGH);
+}
+
+void rightAn()
+{
+  digitalWrite(comR, HIGH);
+}
+
+
+
+
 void frontAus()
 {
-  Serial.write(front);
-  //delay(1000);
-  Serial.println("Der Vordere ist aus!");
+  
 }
 
 void backAus()
@@ -113,29 +123,7 @@ void rightAus()
 
 ////////////////////////////////////////////////////AN //////////////////////////////////////////////////////////
 
-void frontAnmachen()
-{
-  Serial.write(frontAn);
-  //delay(1000);
-  //Serial.println("Der Vordere ist an!");
-}
 
-void backAnmachen()
-{
-  Serial.write(backAn);
-  //delay(1000);
-  //Serial.println("Der Hintere ist an!");
-}
-
-void leftAnmachen()
-{
-  Serial.write(leftAn);
-}
-
-void rightAnmachen()
-{
-  Serial.write(rightAn);
-}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
