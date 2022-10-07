@@ -86,13 +86,25 @@ void startCountdown()
 
 void loop() 
 {
-    ArmTest();
+  teamLila();
+//  teamGelb();
 }
 
 
    ////////////////////////////////////////////////////////////////////
   //                           Funktionen                           //
  ///////////////////////////////////////////////////////////////////
+
+void teamLila() {
+  driveForward(500);
+  turnRight(80);
+  driveForward(1000);
+    
+}
+
+void teamGelb(){
+  
+}
 
 void ArmTest()
 {
