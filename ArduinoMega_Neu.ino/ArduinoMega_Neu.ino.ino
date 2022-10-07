@@ -29,6 +29,7 @@ bool enabledB = true;
 bool enabledL = true;
 bool enabledR = true;
 
+bool zeitZuEnde = false;
 
 
 Servo servoArm;                 //Defininert die beiden Servomotoren
@@ -56,6 +57,8 @@ void setup() //Hier beginnt das Setup.
 
   servoWuerfel.attach(11); // servo auf digital pin 11
   servoArm.attach(10); // servo auf digital pin 10
+  servoArm.write(180);  
+  servoWuerfel.write(75);
 
   while(!digitalRead(startPin)) 
   {
@@ -69,9 +72,10 @@ void startCountdown()
 {
   timeElapsed++;
   if (timeElapsed > 95)
-  {
+  { 
     digitalWrite(enableR,HIGH);           //beide Enable Pins auf high, sodass keine falschen Bewegungen passieren können
     digitalWrite(enableL,HIGH); 
+    zeitZuEnde = true;
   }
 }
 
@@ -92,17 +96,30 @@ void loop()
 
 void ArmTest()
 {
-  servoArm.write(180);    //startposition von Schieber
+  servoArmDrehen(180);    //startposition von Schieber
   delay(1000);
-  servoWuerfel.write(75);   //Startposition vom Würfelarm
+  servoWuerfelDrehen(75);   //Startposition vom Würfelarm
   delay(1000);
-  servoArm.write(90);    //Ausgefahrener Schieber
+  servoArmDrehen(90);    //Ausgefahrener Schieber
   delay(1000);
-  servoWuerfel.write(180);      //Ausgefahrener Würfelarm 
+  servoWuerfelDrehen(180);      //Ausgefahrener Würfelarm 
   delay(1000);
-  Serial.println("Loop");
+  servoWuerfelDrehen(75);
+  delay(1000);
+}
 
+void servoArmDrehen(int winkel)
+{
+  if (zeitZuEnde == false) {
+    servoArm.write(winkel);
+  }
+}
 
+void servoWuerfelDrehen(int winkel)
+{
+  if (zeitZuEnde == false) {
+    servoWuerfel.write(winkel);
+  }
 }
 
  void driveForward(int steps)
