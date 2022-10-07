@@ -82,7 +82,7 @@ void startCountdown()
 
 void loop() 
 {
-      driveForward(10000);
+    ArmTest();
 }
 
 
@@ -90,7 +90,20 @@ void loop()
   //                           Funktionen                           //
  ///////////////////////////////////////////////////////////////////
 
+void ArmTest()
+{
+  servoArm.write(180);    //startposition von Schieber
+  delay(1000);
+  servoWuerfel.write(75);   //Startposition vom Würfelarm
+  delay(1000);
+  servoArm.write(90);    //Ausgefahrener Schieber
+  delay(1000);
+  servoWuerfel.write(180);      //Ausgefahrener Würfelarm 
+  delay(1000);
+  Serial.println("Loop");
 
+
+}
 
  void driveForward(int steps)
  {
