@@ -100,24 +100,23 @@ void rightAn()
 
 void frontAus()
 {
-  
+  digitalWrite(comF, LOW);
+
 }
 
 void backAus()
 {
-  Serial.write(back);
-  //delay(1000);
-  Serial.println("Der Hintere ist aus!");
+  digitalWrite(comB, LOW);
 }
 
 void leftAus()
 {
-  Serial.write(left);
+  digitalWrite(comB, LOW);
 }
 
 void rightAus()
 {
-  Serial.write(right);
+  digitalWrite(comB, LOW);
 } 
 
 
@@ -132,13 +131,10 @@ void rightAus()
 
  void driveForward(int steps)
  {
-    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
-    frontAnmachen();
-    delay(100);
+    //Ativiert die wichtigen Ultraschalsensoren
+    frontAn();
     backAus();
-    delay(100);
     leftAus();
-    delay(100);
     rightAus();
     
     
@@ -199,13 +195,10 @@ void rightAus()
  {
     
 
-    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
-    backAnmachen();
-    delay(100);
+    //Ativiert die wichtigen Ultraschalsensoren
+    backAn();
     frontAus();
-    delay(100);
     leftAus();
-    delay(100);
     rightAus();
     
     int speed = 0;
@@ -264,13 +257,10 @@ void rightAus()
  {
 
     
-    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
-    frontAnmachen();
-    delay(100);
-    rightAnmachen();
-    delay(100);
+    //Ativiert die wichtigen Ultraschalsensoren
+    frontAn();
+    rightAn();
     backAus();
-    delay(100);
     leftAus();
     
     int speed = 0;
@@ -318,13 +308,10 @@ void rightAus()
  void turnRight(int steps)
  {
   
-    delay(1000);            //Ativiert die wichtigen Ultraschalsensoren
-    frontAnmachen();
-    delay(100);
-    leftAnmachen();
-    delay(100);
+    //Ativiert die wichtigen Ultraschalsensoren
+    frontAn();
+    leftAn();
     backAus();
-    delay(100);
     rightAus();
   
     int speed = 0;
