@@ -12,16 +12,27 @@
 #define dirR 29
 
 
-#define comF 15
-#define comB 12
-#define comL 13
-#define comR 14
+#define comF 7
+#define comB 6
+#define comL 5
+#define comR 4
 
 int t = 100; //ms Pause
 int accelerationPhase = 100;          // die 100 ersten Steps
 int accelerationNummer = 0.0025;      //multiplikator
 int stepsDone = 0;
 int i = 0;                              //test
+
+bool Falarm = false;
+bool Balarm = false;
+bool Lalarm = false;
+bool Ralarm = false;
+
+bool enabledF = true;
+bool enabledB = true;
+bool enabledL = true;
+bool enabledR = true;
+
 
 
 Servo servoArm;
@@ -63,51 +74,64 @@ void loop()
 ////////////////////////////////////////////////////// AN /////////////////////////////////////////////
 
 
-
-void frontAn()
+void updateAlarm()
 {
-    digitalWrite(comF, HIGH);
-  
+    if(digitalRead(comF) == HIGH)  
+    {
+           Falarm = true; 
+      
+    }
+    else if(digitalRead(comF) == LOW)
+    {
+          Falarm = false;
+          
+    }    
+
+    //Back    
+
+    else if(digitalRead(comB) == HIGH)  
+    {
+           Balarm = true; 
+      
+    }
+    else if(digitalRead(comB) == LOW)
+    {
+          Balarm = false;
+
+    }    
+
+    //Left
+
+    else if(digitalRead(comL) == HIGH)  
+    {
+           Lalarm = true; 
+      
+    }
+    else if(digitalRead(comL) == LOW)
+    {
+          Lalarm = false;
+
+    }      
+
+
+    // Right
+
+    else if(digitalRead(comR) == HIGH)  
+    {
+           Ralarm = true; 
+      
+    }
+    else if(digitalRead(comR) == LOW)
+    {
+          Ralarm = false;
+
+    }      
+
 }
 
-void backAn()
-{
-  digitalWrite(comB, HIGH);
-}
-
-void leftAn()
-{
-  digitalWrite(comL, HIGH);
-}
-
-void rightAn()
-{
-  digitalWrite(comR, HIGH);
-}
 
 
-////////////////////////////////////////////////////AUS //////////////////////////////////////////////////////////
 
-void frontAus()
-{
-  digitalWrite(comF, LOW);
-
-}
-
-void backAus()
-{
-  digitalWrite(comB, LOW);
-}
-
-void leftAus()
-{
-  digitalWrite(comB, LOW);
-}
-
-void rightAus()
-{
-  digitalWrite(comB, LOW);
-} 
 
 
 
@@ -118,11 +142,6 @@ void rightAus()
 
  void driveForward(int steps)
  {
-    //Ativiert die wichtigen Ultraschalsensoren
-    frontAn();
-    backAus();
-    leftAus();
-    rightAus();
     
     
     int speed = 0;
@@ -142,7 +161,7 @@ void rightAus()
     
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
     {    
-        if (digitalRead(5) == LOW)
+        if (digitalRead(comF) == LOW)   //Wenn vorne kein Alarm ist
         {
 
 // gain Speed
@@ -181,12 +200,6 @@ void rightAus()
  void driveBackwards(int steps)
  {
     
-
-    //Ativiert die wichtigen Ultraschalsensoren
-    backAn();
-    frontAus();
-    leftAus();
-    rightAus();
     
     int speed = 0;
     int a = 0; 
@@ -204,7 +217,7 @@ void rightAus()
     
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
     {    
-        if (digitalRead(5) == LOW)
+        if (digitalRead(comB) == LOW)
         {
 
 // gain Speed
@@ -243,13 +256,7 @@ void rightAus()
  void turnLeft(int steps)
  {
 
-    
-    //Ativiert die wichtigen Ultraschalsensoren
-    frontAn();
-    rightAn();
-    backAus();
-    leftAus();
-    
+        
     int speed = 0;
     int a = 0; 
     float MotorAn;
@@ -268,7 +275,7 @@ void rightAus()
     
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
     {    
-        if (digitalRead(5) == LOW)
+        if (digitalRead(7) == LOW)
         {
           Serial.println("STEP");
           digitalWrite(stepL,HIGH);
@@ -295,11 +302,6 @@ void rightAus()
  void turnRight(int steps)
  {
   
-    //Ativiert die wichtigen Ultraschalsensoren
-    frontAn();
-    leftAn();
-    backAus();
-    rightAus();
   
     int speed = 0;
     int a = 0; 
@@ -319,7 +321,7 @@ void rightAus()
     
     for( stepsDone = 0; stepsDone < steps ; stepsDone++ )
     {    
-        if (digitalRead(5) == LOW)
+        if (digitalRead(7) == LOW)
         {
           Serial.println("STEP");
           digitalWrite(stepL,HIGH);

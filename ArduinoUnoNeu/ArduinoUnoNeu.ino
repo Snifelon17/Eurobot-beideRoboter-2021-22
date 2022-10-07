@@ -22,12 +22,12 @@ R = right
 #define triggerL 9 //Change
 #define echoL 7    //Change
 
-#define datetransfer 11 // 11, aber zu deaktivierung auf 15 geändert
+//#define datetransfer 11 // 11, aber zu deaktivierung auf 15 geändert
 
-#define readF 3
-#define readB 6
-#define readL 13
-#define readR 14
+#define comF 11
+#define comB 13
+#define comL 3
+#define comR 2
 
 // Init Supersonice front
 
@@ -84,85 +84,17 @@ void setup()
 }
 
 void loop() {
+  
   //checkFront();
   //checkBack();
-  //checkLeft();
+  checkLeft();
   //checkRight();
-  checkStatus();
   delay(10);
 
 }
 
 
-////////////////////////////////////////////////////////////////////////////////
-
-void checkStatus()
-{
-  
-  //Check welche auf AN gestellt werden
-
-  if(digitalRead(readF) == HIGH)
-  {
-   
-    enabledF = true;
-    
-  }  
-
-  if(digitalRead(readB) == HIGH)
-  {
-   
-    enabledB = true;
-
-  }  
-    
-  if(digitalRead(readL) == HIGH)
-  {
-   
-    enabledL = true;
-
-  }  
-    
-  if(digitalRead(readR) == HIGH)
-  {
-   
-    enabledR = true;
-
-  }  
-  
-
-  ///////////////////////// Check welche auf Aus gestellt werden ////////////////////////////////
-
-  if(digitalRead(readF) == LOW)
-  {
-   
-    enabledF = false;
-    
-  }  
-
-  if(digitalRead(readB) == LOW)
-  {
-   
-    enabledB = false;
-
-  }  
-    
-  if(digitalRead(readL) == LOW)
-  {
-   
-    enabledL = false;
-
-  }  
-    
-  if(digitalRead(readR) ==LOW)
-  {
-   
-    enabledR = false;
-
-  }  
-
-
-}
-
+///////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -181,18 +113,17 @@ void checkFront()
   entfernungF = dauerF/2*0.03432;
   Serial.println (entfernungF);
 
-  if (entfernungF < 30 && enabledF == true)
+  if (entfernungF < 10 && enabledF == true)
   {
-    digitalWrite(datetransfer, HIGH);
+    digitalWrite(comF, HIGH);
     delay(10);
     Serial.println("Alarm")  ;
-    checkStatus();
-    checkFront();
+    
     
   }
   else
   {
-      digitalWrite(datetransfer, LOW);
+        digitalWrite(comF, LOW);
   }
     
 }
@@ -210,18 +141,17 @@ void checkBack()
   entfernungB = dauerB/2*0.03432;
   Serial.println (entfernungB);
 
-  if (entfernungB < 30 && enabledB == true)
+  if (entfernungB < 10)  // && enabledB == true
   {
-    digitalWrite(datetransfer, HIGH);
+    digitalWrite(comB, HIGH);
     delay(10);
     Serial.println("Alarm")  ;
-    checkStatus();
-    checkBack();
+    
      
   }
   else
   {
-      digitalWrite(datetransfer, LOW);
+      digitalWrite(comB, LOW);
   }
     
 }
@@ -239,18 +169,17 @@ void checkLeft()
   entfernungL = dauerL/2*0.03432;
   Serial.println (entfernungL);
 
-  if (entfernungL < 30 && enabledL == true)
+  if (entfernungL < 10 )
   {
-    digitalWrite(datetransfer, HIGH);
+    digitalWrite(comL, HIGH);
     delay(10);
     Serial.println("Alarm")  ; 
-    checkStatus();
-    checkLeft();
+  
     
   }
   else
   {
-      digitalWrite(datetransfer, LOW);
+      digitalWrite(comL, LOW);
   }
     
 }
@@ -268,18 +197,17 @@ void checkRight()
   entfernungR = dauerR/2*0.03432;
   Serial.println (entfernungR);
 
-  if (entfernungR < 30 && enabledR == true)
+  if (entfernungR < 10 && enabledR == true)
   {
-    digitalWrite(datetransfer, HIGH);
+    digitalWrite(comR, HIGH);
     delay(10);
     Serial.println("Alarm")  ; 
-    checkStatus();
-    checkRight();
+  
     
   }
   else
   {
-      digitalWrite(datetransfer, LOW);
+      digitalWrite(comR, LOW);
   }
     
 }
