@@ -1,6 +1,7 @@
 #include <AccelStepper.h>
 #include <Servo.h>
 #include <math.h>
+#include <TimerOne.h>
 
 #define enableL 8         // Enable Pins, beide Motoren haben den selben Enable Pin
 #define enableR 8
@@ -17,9 +18,11 @@
 #define comL 4
 #define comR 4
 
+#define startPin 7
+
 int t = 80; //ms Pause         // Zeit, die zwischen 2 Steps des Stepper Motors vergeht
 int stepsDone = 0;             // gemachte Schritte einer Funktion driveX
-
+int timeElapsed;
 
 bool enabledF = true;           //Wenn man einzelne Ultraschall- Sensoren auschalten will, müssen diese Werte auf false gesetzt werden
 bool enabledB = true;
@@ -46,13 +49,30 @@ void setup() //Hier beginnt das Setup.
   pinMode(33, OUTPUT);
   pinMode(29, OUTPUT);
 
-
+  pinMode(startPin, INPUT_PULLUP);    
 
   digitalWrite(enableR,HIGH);           //beide Enable Pins auf high, sodass keine falschen Bewegungen passieren können
   digitalWrite(enableL,HIGH); 
 
   servoWuerfel.attach(11); // servo auf digital pin 11
   servoArm.attach(10); // servo auf digital pin 10
+
+  while(!digitalRead(startPin)) 
+  {
+    delay(100);
+  }
+  Timer1.initialize(1000000);
+  Timer1.start();
+  Timer1.attachInterrupt(startCountdown);
+}
+void startCountdown()
+{
+  timeElapsed++;
+  if (timeElapsed > 95)
+  {
+    digitalWrite(enableR,HIGH);           //beide Enable Pins auf high, sodass keine falschen Bewegungen passieren können
+    digitalWrite(enableL,HIGH); 
+  }
 }
 
    ////////////////////////////////////////////////////////////////////
@@ -62,10 +82,7 @@ void setup() //Hier beginnt das Setup.
 
 void loop() 
 {
-
-  driveForward(2000);
-  delay(3000);
-  
+      driveForward(10000);
 }
 
 
