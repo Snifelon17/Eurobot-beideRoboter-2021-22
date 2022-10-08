@@ -88,10 +88,11 @@ void loop()
 {
   
     driveForward(100);
-    delay(100);  
-    turnRight(2000);
     delay(100);
-    driveBackwards(100); 
+    driveBackwards(100);
+    delay(1000);
+    turnLeft(2000);
+     
   
   
   //teamLila();
@@ -108,9 +109,12 @@ void teamLila() {
   servoArmDrehen(90);
   driveForward(50);
   turnLeft(80);
-  driveForward(1000); 
+  driveForward(50);
+  turnLeft(80);
+  driveForward(200); 
   enabledF = false;  
-  driveForward(400);
+  driveForward(30);
+  delay(1000);  
     
 }
 
@@ -226,9 +230,9 @@ void servoWuerfelDrehen(int winkel)
 
         // wird ausgeführt wenn ein Hindernis erkannt wird
         else {
+          accelerationPhase = 200;
           stepsDone = stepsDone - 1;
-          delay(10);
-          int accelerationPhase = 200; 
+          delay(10); 
           }
               
     }
@@ -278,7 +282,7 @@ void servoWuerfelDrehen(int winkel)
 
         // wird ausgeführt wenn ein Hindernis erkannt wird
         else {
-          int accelerationPhase = 200; 
+          accelerationPhase = 200;
           stepsDone = stepsDone - 1;
           delay(10);
           }
@@ -330,9 +334,9 @@ void servoWuerfelDrehen(int winkel)
 
         // wird ausgeführt wenn ein Hindernis erkannt wird
         else {
-          int accelerationPhase = 200; 
+          accelerationPhase = 200; 
           stepsDone = stepsDone - 1;
-          delay(100);
+          delay(10);
           }
               
     }

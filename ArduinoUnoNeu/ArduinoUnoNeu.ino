@@ -80,16 +80,12 @@ void setup()
 }
 
 void loop() {
-  
-  checkFront();
   checkBack();
+  checkFront();
   checkLeft();
   checkRight();
   delay(100);
-
-}
-
-
+}  
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -109,7 +105,7 @@ void checkFront()
   entfernungF = dauerF/2*0.03432;
   Serial.println (entfernungF);
 
-  if (entfernungF < 20)
+  if (entfernungF < 25)
   {
     digitalWrite(comF, HIGH);
     delay(10);
