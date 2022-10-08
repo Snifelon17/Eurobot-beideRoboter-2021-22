@@ -89,10 +89,8 @@ void startCountdown()
 
 void loop()
 {
-  Serial.println("Loop");
-  driveFast(5000, true, false);
-  turnFast(5000, true, false);
-  // teamLila();
+
+  teamLila();
   //  teamGelb();
 }
 
@@ -102,19 +100,26 @@ void loop()
 ///////////////////////////////////////////////////////////////////
 
 void teamLila() {
-  turnLeft(30);
-  driveForward(500);
-  turnLeft(90);
+  turnFast(30, true, false);
+  delay(100);
+  driveFast(50, true, false);
+  delay(100);
+  turnFast(90, false, false);
+  delay(100);
   servoArmDrehen(90);
-  driveForward(700);
+  delay(100);
+  driveFast(70, true, false);
+  delay(100);
 
-
-  turnLeft(80);
-  driveForward(50);
-  turnLeft(80);
-  driveForward(200);
-  enabledF = false;
-  driveForward(30);
+  turnFast(80, false, false);
+  delay(100);
+  driveFast(10, true, false);
+  delay(100);
+  turnFast(80, false , false);
+  delay(100);
+  driveFast(50, true, false);
+  delay(100);
+  driveFast(70, false, false);
   delay(1000);
 
 }
@@ -191,9 +196,11 @@ void driveForward(int strecke)
 
   }
 }
-void driveFast(unsigned int steps, bool dir, bool ignore)
+void driveFast(unsigned int strecke, bool dir, bool ignore)
 {
 
+  
+  int steps = strecke / 80 * 3846;
   delay(10);
 
   digitalWrite(dirL, dir ? 0 : 1);
@@ -265,9 +272,10 @@ void driveFast(unsigned int steps, bool dir, bool ignore)
   digitalWrite(enableL, HIGH);
   digitalWrite(enableR, HIGH);
 }
-void turnFast(unsigned int steps, bool dir, bool ignore)
+void turnFast(unsigned int grad, bool dir, bool ignore)
 {
 
+  int steps = grad /150 * 1000 ;
   digitalWrite(dirL, dir ? 1 : 0);
   digitalWrite(dirR, dir ? 0 : 1);
   digitalWrite(enableL, LOW);
