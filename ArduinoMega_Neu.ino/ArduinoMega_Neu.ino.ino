@@ -3,29 +3,29 @@
 #include <math.h>
 #include <TimerOne.h>
 
-#define enableL 8         // Enable Pins, beide Motoren haben den selben Enable Pin
+#define enableL 8  // Enable Pins, beide Motoren haben den selben Enable Pin
 #define enableR 8
 
-#define stepL 25          //Beide Step Pins, pro Intervall ein Schritt
+#define stepL 25  //Beide Step Pins, pro Intervall ein Schritt
 #define stepR 34
 
-#define dirL 33       //Direction Pin des linken Motors
+#define dirL 33  //Direction Pin des linken Motors
 #define dirR 29
 
 
-#define comF 6        // Kommunikation-Pins, wenn einer der Pins high ist,
-#define comB 5        // meldet der dazugehörig Sensor Alarm
+#define comF 6  // Kommunikation-Pins, wenn einer der Pins high ist,
+#define comB 5  // meldet der dazugehörig Sensor Alarm
 #define comL 4
 #define comR 4
 
 #define startPin 7
 
-int t = 50; //ms Pause         // Zeit, die zwischen 2 Steps des Stepper Motors vergeht
+int t = 50;  //ms Pause         // Zeit, die zwischen 2 Steps des Stepper Motors vergeht
 const float tPerStep = 865;
-int stepsDone = 0;             // gemachte Schritte einer Funktion driveX
+int stepsDone = 0;  // gemachte Schritte einer Funktion driveX
 int timeElapsed;
 
-bool enabledF = true;           //Wenn man einzelne Ultraschall- Sensoren auschalten will, müssen diese Werte auf false gesetzt werden
+bool enabledF = true;  //Wenn man einzelne Ultraschall- Sensoren auschalten will, müssen diese Werte auf false gesetzt werden
 bool enabledB = true;
 bool enabledL = true;
 bool enabledR = true;
@@ -33,7 +33,7 @@ bool enabledR = true;
 bool zeitZuEnde = false;
 
 
-Servo servoArm;                 //Defininert die beiden Servomotoren
+Servo servoArm;  //Defininert die beiden Servomotoren
 Servo servoWuerfel;
 
 
@@ -42,9 +42,9 @@ Servo servoWuerfel;
 ///////////////////////////////////////////////////////////////////
 
 
-void setup() //Hier beginnt das Setup.
+void setup()  //Hier beginnt das Setup.
 {
-  Serial.begin(9600);       //Serielle Geschwindigkeit festlegen
+  Serial.begin(9600);  //Serielle Geschwindigkeit festlegen
   pinMode(8, OUTPUT);
   pinMode(25, OUTPUT);
   pinMode(34, OUTPUT);
@@ -53,16 +53,15 @@ void setup() //Hier beginnt das Setup.
 
   pinMode(startPin, INPUT_PULLUP);
 
-  digitalWrite(enableR, HIGH);          //beide Enable Pins auf high, sodass keine falschen Bewegungen passieren können
+  digitalWrite(enableR, HIGH);  //beide Enable Pins auf high, sodass keine falschen Bewegungen passieren können
   digitalWrite(enableL, HIGH);
 
-  servoWuerfel.attach(11); // servo auf digital pin 11
-  servoArm.attach(10); // servo auf digital pin 10
+  servoWuerfel.attach(11);  // servo auf digital pin 11
+  servoArm.attach(10);      // servo auf digital pin 10
   servoArm.write(180);
   servoWuerfel.write(75);
 
-  while(!digitalRead(startPin))
-  {
+  while (!digitalRead(startPin)) {
     delay(100);
   }
   Timer1.initialize(1000000);
@@ -70,11 +69,9 @@ void setup() //Hier beginnt das Setup.
   Timer1.attachInterrupt(startCountdown);
   Serial.println("Bin durch");
 }
-void startCountdown()
-{
+void startCountdown() {
   timeElapsed++;
-  if (timeElapsed > 95)
-  {
+  if (timeElapsed > 95) {
     TCCR0B = 0;
     TCCR1B = 0;
     TCCR2B = 0;
@@ -87,11 +84,53 @@ void startCountdown()
 ///////////////////////////////////////////////////////////////////
 
 
-void loop()
-{
+void loop() {  
+  //teamLila();  
 
-  teamLila();
+
+  //turnFast(175, true, false);
+  servoArmDrehen(90);
+  driveFast(2500, true, false);
+  turnFast(80, false, false);
+  driveFast(80, true, false);
+  delay(100);
+  turnFast(80, false, false);
+  driveFast(90, true, false);
+  delay(100);
+  turnFast(80, false, false);
+  driveFast(90, true, false);
+  delay(100);
+  turnFast(80, false, false);
+  driveFast(90, true, false);
+  delay(100);
+  turnFast(500, false, false);
+  driveFast(3400, true, false);   //Wir stehen genau an der Wandschräge im Eck
+  delay(500);
+  driveFast(200, false, false);
+  delay(500);
+  servoArmDrehen(135);
+  driveFast(200, true, false);
+  turnFast(1000,true, false);
+  servoArmDrehen(90);
+  turnFast(1000,false, false);
+  delay(500);
+  servoWuerfelDrehen(180);
+  delay(1000);
+  driveFast(2500, false, false);  
+  delay(100000);
+
+
+
+  
+
+ /* turnFast(466, false, false);
+  driveFast(400, true, false);
+  turnFast(466, false, false);
+  driveFast(800, true, false);
+  driveFast(1900, false, false);  
+  
   //  teamGelb();
+  */
 }
 
 
@@ -100,107 +139,87 @@ void loop()
 ///////////////////////////////////////////////////////////////////
 
 void teamLila() {
-  turnFast(30, true, false);
-  delay(100);
+  turnFast(175, true, false);
   driveFast(50, true, false);
-  delay(100);
-  turnFast(90, false, false);
-  delay(100);
+  turnFast(524, false, false);
   servoArmDrehen(90);
-  delay(100);
   driveFast(70, true, false);
-  delay(100);
 
-  turnFast(80, false, false);
-  delay(100);
+  turnFast(466, false, false);
   driveFast(10, true, false);
-  delay(100);
-  turnFast(80, false , false);
-  delay(100);
+  turnFast(466, false, false);
   driveFast(50, true, false);
-  delay(100);
   driveFast(70, false, false);
   delay(1000);
-
 }
 
 void teamGelb() {
-
 }
 
-void ArmTest()
-{
-  servoArmDrehen(180);    //startposition von Schieber
+void ArmTest() {
+  servoArmDrehen(180);  //startposition von Schieber
   delay(1000);
-  servoWuerfelDrehen(75);   //Startposition vom Würfelarm
+  servoWuerfelDrehen(75);  //Startposition vom Würfelarm
   delay(1000);
-  servoArmDrehen(90);    //Ausgefahrener Schieber
+  servoArmDrehen(90);  //Ausgefahrener Schieber
   delay(1000);
-  servoWuerfelDrehen(180);      //Ausgefahrener Würfelarm
+  servoWuerfelDrehen(180);  //Ausgefahrener Würfelarm
   delay(1000);
   servoWuerfelDrehen(75);
   delay(1000);
 }
 
-void servoArmDrehen(int winkel)
-{
+void servoArmDrehen(int winkel) {
   if (zeitZuEnde == false) {
     servoArm.write(winkel);
   }
 }
 
-void servoWuerfelDrehen(int winkel)
-{
+void servoWuerfelDrehen(int winkel) {
   if (zeitZuEnde == false) {
     servoWuerfel.write(winkel);
   }
 }
 
-void driveForward(int strecke)
-{
+void driveForward(int strecke) {
   //1000 steps sind 26 cm       3846 steps sind 80 cm
 
   int steps = strecke / 80 * 3846;
-  int accelerationPhase = 200;          // die 100 ersten Steps
+  int accelerationPhase = 200;  // die 100 ersten Steps
   int a = 0;
 
-  digitalWrite(enableR, LOW);         //beide Enable pins auf low, sodass sie sich bewegen können
+  digitalWrite(enableR, LOW);  //beide Enable pins auf low, sodass sie sich bewegen können
   digitalWrite(enableL, LOW);
 
-  digitalWrite(dirL, LOW);            //Hier wird die Richtung des Motors festgelegt
+  digitalWrite(dirL, LOW);  //Hier wird die Richtung des Motors festgelegt
   digitalWrite(dirR, LOW);
 
 
-  for ( stepsDone = 0; stepsDone < steps ; stepsDone++ )      // Für jeden Schritt
+  for (stepsDone = 0; stepsDone < steps; stepsDone++)  // Für jeden Schritt
   {
-    if (digitalRead(comF) == LOW || enabledF == false)   //Wenn vorne kein Alarm ist
+    if (digitalRead(comF) == LOW || enabledF == false)  //Wenn vorne kein Alarm ist
     {
 
-      Serial.println("STEP");                           //Schritt
+      Serial.println("STEP");  //Schritt
       digitalWrite(stepL, HIGH);
       digitalWrite(stepR, HIGH);
       delayMicroseconds(t + accelerationPhase);
-      if (accelerationPhase > 0)                      //Wenn die Beschleunigung noch nicht vorbei ist, mache die Geschwindikeit höher
+      if (accelerationPhase > 0)  //Wenn die Beschleunigung noch nicht vorbei ist, mache die Geschwindikeit höher
       {
         accelerationPhase--;
       }
       digitalWrite(stepL, LOW);
       digitalWrite(stepR, LOW);
       delayMicroseconds(t + accelerationPhase);
-    }
-    else {                                           // wird ausgeführt wenn ein Hindernis erkannt wird
+    } else {  // wird ausgeführt wenn ein Hindernis erkannt wird
       accelerationPhase = 200;
       stepsDone = stepsDone - 1;
       delay(10);
     }
-
   }
 }
-void driveFast(unsigned int strecke, bool dir, bool ignore)
-{
+void driveFast(unsigned int steps, bool dir, bool ignore) {
 
-  
-  int steps = strecke / 80 * 3846;
   delay(10);
 
   digitalWrite(dirL, dir ? 0 : 1);
@@ -210,23 +229,19 @@ void driveFast(unsigned int strecke, bool dir, bool ignore)
 
   delay(10);
 
-  float a = 0; //for acceleration
-  for (unsigned int i = 0; i < steps; i++)
-  {
+  float a = 0;  //for acceleration
+  for (unsigned int i = 0; i < steps; i++) {
     a = 0;
-    if (i < 400 && i <= steps / 2)
-    {
+    if (i < 400 && i <= steps / 2) {
       a = tPerStep * 0.0025 * (400 - i);
     }
 
-    if (steps - i < 400 && i > steps / 2)
-    {
+    if (steps - i < 400 && i > steps / 2) {
       a = tPerStep * 0.0025 * (400 - (steps - i));
     }
 
     if (digitalRead(dir ? comF : comB) && steps - i > 200 && !ignore) {
-      for (int blahh = 0; blahh < 100; blahh++)
-      {
+      for (int blahh = 0; blahh < 100; blahh++) {
         a = tPerStep * 0.0025 * (100 - blahh);
 
         digitalWrite(stepR, HIGH);
@@ -239,15 +254,13 @@ void driveFast(unsigned int strecke, bool dir, bool ignore)
 
       digitalWrite(enableL, HIGH);
       digitalWrite(enableR, HIGH);
-      while (digitalRead(dir ? comF : comB))
-      {
+      while (digitalRead(dir ? comF : comB)) {
         delay(500);
       }
       digitalWrite(enableL, LOW);
       digitalWrite(enableL, LOW);
 
-      for (int blubb = 0; blubb < 100; blubb++)
-      {
+      for (int blubb = 0; blubb < 100; blubb++) {
         a = tPerStep * 0.0025 * (100 - blubb);
 
         digitalWrite(stepL, HIGH);
@@ -272,10 +285,8 @@ void driveFast(unsigned int strecke, bool dir, bool ignore)
   digitalWrite(enableL, HIGH);
   digitalWrite(enableR, HIGH);
 }
-void turnFast(unsigned int grad, bool dir, bool ignore)
-{
+void turnFast(unsigned int steps, bool dir, bool ignore) {
 
-  int steps = grad /150 * 1000 ;
   digitalWrite(dirL, dir ? 1 : 0);
   digitalWrite(dirR, dir ? 0 : 1);
   digitalWrite(enableL, LOW);
@@ -283,23 +294,19 @@ void turnFast(unsigned int grad, bool dir, bool ignore)
 
   delay(10);
 
-  float a = 0; //for acceleration
-  for (unsigned int i = 0; i < steps; i++)
-  {
+  float a = 0;  //for acceleration
+  for (unsigned int i = 0; i < steps; i++) {
     a = 0;
-    if (i < 400 && i <= steps / 2)
-    {
+    if (i < 400 && i <= steps / 2) {
       a = tPerStep * 0.0025 * (400 - i);
     }
 
-    if (steps - i < 400 && i > steps / 2)
-    {
+    if (steps - i < 400 && i > steps / 2) {
       a = tPerStep * 0.0025 * (400 - (steps - i));
     }
 
     if (digitalRead(comL) && steps - i > 200 && !ignore) {
-      for (int blahh = 0; blahh < 100; blahh++)
-      {
+      for (int blahh = 0; blahh < 100; blahh++) {
         a = tPerStep * 0.0025 * (100 - blahh);
 
         digitalWrite(stepL, HIGH);
@@ -311,17 +318,15 @@ void turnFast(unsigned int grad, bool dir, bool ignore)
       }
 
       digitalWrite(enableL, HIGH);
-  digitalWrite(enableR, HIGH);
-      while (digitalRead(comL))
-      {
+      digitalWrite(enableR, HIGH);
+      while (digitalRead(comL)) {
         delay(500);
       }
 
       digitalWrite(enableL, LOW);
-  digitalWrite(enableR, LOW);
+      digitalWrite(enableR, LOW);
 
-      for (int blubb = 0; blubb < 100; blubb++)
-      {
+      for (int blubb = 0; blubb < 100; blubb++) {
         a = tPerStep * 0.0025 * (100 - blubb);
 
         digitalWrite(stepL, HIGH);
@@ -336,10 +341,10 @@ void turnFast(unsigned int grad, bool dir, bool ignore)
     }
 
     digitalWrite(stepL, HIGH);
-        digitalWrite(stepR, HIGH);
+    digitalWrite(stepR, HIGH);
     delayMicroseconds(tPerStep + a);
     digitalWrite(stepL, LOW);
-        digitalWrite(stepR, LOW);
+    digitalWrite(stepR, LOW);
     delayMicroseconds(tPerStep + a);
   }
 
@@ -349,33 +354,27 @@ void turnFast(unsigned int grad, bool dir, bool ignore)
 
 
 
-void driveBackwards(int strecke)
-{
+void driveBackwards(int strecke) {
 
   int steps = strecke / 26 * 1000;
   int accelerationPhase = 200;
   int a = 0;
 
-  digitalWrite(enableR, LOW); //oder low, habs vergessen
-  digitalWrite(enableL, LOW); //oder low, habs vergessen
+  digitalWrite(enableR, LOW);  //oder low, habs vergessen
+  digitalWrite(enableL, LOW);  //oder low, habs vergessen
 
-  digitalWrite(dirL, HIGH); //oder andersrum
-  digitalWrite(dirR, HIGH); //oder andersrum
-
-
+  digitalWrite(dirL, HIGH);  //oder andersrum
+  digitalWrite(dirR, HIGH);  //oder andersrum
 
 
-  for ( stepsDone = 0; stepsDone < steps ; stepsDone++ )
-  {
-    if (digitalRead(comB) == LOW || enabledB == false)
-    {
+  for (stepsDone = 0; stepsDone < steps; stepsDone++) {
+    if (digitalRead(comB) == LOW || enabledB == false) {
 
       Serial.println("STEP");
       digitalWrite(stepL, HIGH);
       digitalWrite(stepR, HIGH);
       delayMicroseconds(t + accelerationPhase);
-      if (accelerationPhase > 0)
-      {
+      if (accelerationPhase > 0) {
         accelerationPhase--;
       }
       digitalWrite(stepL, LOW);
@@ -389,45 +388,36 @@ void driveBackwards(int strecke)
       stepsDone = stepsDone - 1;
       delay(10);
     }
-
   }
 }
 
 
 
 
-void turnLeft(int steps)
-{
+void turnLeft(int steps) {
 
 
   int accelerationPhase = 200;
   int a = 0;
 
-  digitalWrite(enableR, LOW); //oder low, habs vergessen
-  digitalWrite(enableL, LOW); //oder low, habs vergessen
+  digitalWrite(enableR, LOW);  //oder low, habs vergessen
+  digitalWrite(enableL, LOW);  //oder low, habs vergessen
 
-  digitalWrite(dirL, HIGH); //oder andersrum
-  digitalWrite(dirR, LOW); //oder andersrum
-
-
+  digitalWrite(dirL, HIGH);  //oder andersrum
+  digitalWrite(dirR, LOW);   //oder andersrum
 
 
 
 
-  for ( stepsDone = 0; stepsDone < steps ; stepsDone++ )
-  {
-    if (digitalRead(comF) == LOW && digitalRead(comR) == LOW   ||
-        enabledF == false && enabledR == false                 ||
-        digitalRead(comF) == LOW && enabledR == false          ||
-        digitalRead(comR) == LOW && enabledF == false
-       )
-    {
+
+
+  for (stepsDone = 0; stepsDone < steps; stepsDone++) {
+    if (digitalRead(comF) == LOW && digitalRead(comR) == LOW || enabledF == false && enabledR == false || digitalRead(comF) == LOW && enabledR == false || digitalRead(comR) == LOW && enabledF == false) {
       Serial.println("STEP");
       digitalWrite(stepL, HIGH);
       digitalWrite(stepR, HIGH);
       delayMicroseconds(t + accelerationPhase);
-      if (accelerationPhase > 0)
-      {
+      if (accelerationPhase > 0) {
         accelerationPhase--;
       }
       digitalWrite(stepL, LOW);
@@ -441,45 +431,36 @@ void turnLeft(int steps)
       stepsDone = stepsDone - 1;
       delay(10);
     }
-
   }
 }
 
 
 
 
-void turnRight(int steps)
-{
+void turnRight(int steps) {
 
 
   int accelerationPhase = 200;
   int a = 0;
 
-  digitalWrite(enableR, LOW); //oder low, habs vergessen
-  digitalWrite(enableL, LOW); //oder low, habs vergessen
+  digitalWrite(enableR, LOW);  //oder low, habs vergessen
+  digitalWrite(enableL, LOW);  //oder low, habs vergessen
 
-  digitalWrite(dirL, LOW); //oder andersrum
-  digitalWrite(dirR, HIGH); //oder andersrum
-
-
+  digitalWrite(dirL, LOW);   //oder andersrum
+  digitalWrite(dirR, HIGH);  //oder andersrum
 
 
 
 
-  for ( stepsDone = 0; stepsDone < steps ; stepsDone++ )
-  {
-    if (digitalRead(comF) == LOW && digitalRead(comL) == LOW   ||
-        enabledF == false && enabledL == false                 ||
-        digitalRead(comF) == LOW && enabledL == false          ||
-        digitalRead(comL) == LOW && enabledF == false
-       )
-    {
+
+
+  for (stepsDone = 0; stepsDone < steps; stepsDone++) {
+    if (digitalRead(comF) == LOW && digitalRead(comL) == LOW || enabledF == false && enabledL == false || digitalRead(comF) == LOW && enabledL == false || digitalRead(comL) == LOW && enabledF == false) {
       Serial.println("STEP");
       digitalWrite(stepL, HIGH);
       digitalWrite(stepR, HIGH);
       delayMicroseconds(t + accelerationPhase);
-      if (accelerationPhase > 0)
-      {
+      if (accelerationPhase > 0) {
         accelerationPhase--;
       }
       digitalWrite(stepL, LOW);
@@ -493,6 +474,5 @@ void turnRight(int steps)
       stepsDone = stepsDone - 1;
       delay(10);
     }
-
   }
 }
