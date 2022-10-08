@@ -31,7 +31,7 @@ bool enabledL = true;
 bool enabledR = true;
 
 bool zeitZuEnde = false;
-
+bool istGelb = true;
 
 Servo servoArm;  //Defininert die beiden Servomotoren
 Servo servoWuerfel;
@@ -68,6 +68,7 @@ void setup()  //Hier beginnt das Setup.
   Timer1.start();
   Timer1.attachInterrupt(startCountdown);
   Serial.println("Bin durch");
+  delay(1000);
 }
 void startCountdown() {
   timeElapsed++;
@@ -85,52 +86,44 @@ void startCountdown() {
 
 
 void loop() {  
-  //teamLila();  
 
 
-  //turnFast(175, true, false);
+
   servoArmDrehen(90);
-  driveFast(2500, true, false);
-  turnFast(80, false, false);
-  driveFast(80, true, false);
-  delay(100);
-  turnFast(80, false, false);
-  driveFast(90, true, false);
-  delay(100);
-  turnFast(80, false, false);
-  driveFast(90, true, false);
-  delay(100);
-  turnFast(80, false, false);
-  driveFast(90, true, false);
-  delay(100);
-  turnFast(500, false, false);
-  driveFast(3400, true, false);   //Wir stehen genau an der Wandschräge im Eck
+  turnFast(77, !istGelb, false);
   delay(500);
-  driveFast(200, false, false);
+  driveFast(3700, true, false); //
   delay(500);
-  servoArmDrehen(135);
-  driveFast(200, true, false);
-  turnFast(1000,true, false);
+  turnFast(760, istGelb, false);
+  delay(500);
+  driveFast(5500, true, false); //
+  delay(500);
+  driveFast(850, true, true);
+  delay(500);
+  //Wir stehen genau an der Wandschräge im Eck
+  driveFast(600, false, false);
+  delay(500);
+  servoArmDrehen(140);
+  delay(500);
+  driveFast(580, true, true);
+  delay(500);
+  turnFast(500,!istGelb, true);
+  delay(500);
+  turnFast(1500,istGelb, true);
+  delay(500);
   servoArmDrehen(90);
-  turnFast(1000,false, false);
   delay(500);
+  turnFast(1000,!istGelb, true);
+  delay(500);
+  driveFast(100, true, true); 
+  delay(500); 
   servoWuerfelDrehen(180);
   delay(1000);
-  driveFast(2500, false, false);  
-  delay(100000);
-
-
-
-  
-
- /* turnFast(466, false, false);
-  driveFast(400, true, false);
-  turnFast(466, false, false);
-  driveFast(800, true, false);
-  driveFast(1900, false, false);  
-  
-  //  teamGelb();
-  */
+  driveFast(700, false, false); 
+  delay(1000);
+  turnFast(140,istGelb, true);  
+  driveFast(2500, false, false);
+  delay(100000); 
 }
 
 

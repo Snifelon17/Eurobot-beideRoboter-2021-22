@@ -131,20 +131,20 @@ void checkBack()
   digitalWrite(triggerB, LOW);
   dauerB = pulseIn (echoB, HIGH);
   entfernungB = dauerB/2*0.03432;
-  Serial.println (entfernungB);
+  //Serial.println (entfernungB);
 
   if (entfernungB < 20)  // && enabledB == true
   {
     digitalWrite(comB, HIGH);
     delay(10);
-    Serial.println("Alarm")  ;
+    //Serial.println("Alarm")  ;
     
      
   }
   else
   {
       digitalWrite(comB, LOW);
-      Serial.println("Entwarnung");
+      //Serial.println("Entwarnung");
       
   }
     
@@ -161,13 +161,13 @@ void checkLeft()
   digitalWrite(triggerL, LOW);
   dauerL = pulseIn (echoL, HIGH);
   entfernungL = dauerL/2*0.03432;
-  Serial.println (entfernungL);
+ // Serial.println (entfernungL);
 
   if (entfernungL < 20 )
   {
     digitalWrite(comL, HIGH);
     delay(10);
-    Serial.println("Alarm")  ; 
+    //Serial.println("Alarm")  ; 
   
     
   }
@@ -189,13 +189,13 @@ void checkRight()
   digitalWrite(triggerR, LOW);
   dauerR = pulseIn (echoR, HIGH);
   entfernungR = dauerR/2*0.03432;
-  Serial.println (entfernungR);
+  //Serial.println (entfernungR);
 
   if (entfernungR < 20 )
   {
     digitalWrite(comR, HIGH);
     delay(10);
-    Serial.println("Alarm")  ; 
+    //Serial.println("Alarm")  ; 
   
     
   }
