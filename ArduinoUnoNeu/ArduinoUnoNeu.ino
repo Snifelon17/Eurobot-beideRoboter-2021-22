@@ -109,7 +109,7 @@ void checkFront()
   entfernungF = dauerF/2*0.03432;
   Serial.println (entfernungF);
 
-  if (entfernungF < 10)
+  if (entfernungF < 20)
   {
     digitalWrite(comF, HIGH);
     delay(10);
@@ -137,7 +137,7 @@ void checkBack()
   entfernungB = dauerB/2*0.03432;
   Serial.println (entfernungB);
 
-  if (entfernungB < 10)  // && enabledB == true
+  if (entfernungB < 20)  // && enabledB == true
   {
     digitalWrite(comB, HIGH);
     delay(10);
@@ -167,7 +167,7 @@ void checkLeft()
   entfernungL = dauerL/2*0.03432;
   Serial.println (entfernungL);
 
-  if (entfernungL < 10 )
+  if (entfernungL < 20 )
   {
     digitalWrite(comL, HIGH);
     delay(10);
@@ -195,7 +195,7 @@ void checkRight()
   entfernungR = dauerR/2*0.03432;
   Serial.println (entfernungR);
 
-  if (entfernungR < 10 )
+  if (entfernungR < 20 )
   {
     digitalWrite(comR, HIGH);
     delay(10);

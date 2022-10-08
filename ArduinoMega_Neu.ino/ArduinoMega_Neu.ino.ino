@@ -20,7 +20,7 @@
 
 #define startPin 7
 
-int t = 80; //ms Pause         // Zeit, die zwischen 2 Steps des Stepper Motors vergeht
+int t = 50; //ms Pause         // Zeit, die zwischen 2 Steps des Stepper Motors vergeht
 int stepsDone = 0;             // gemachte Schritte einer Funktion driveX
 int timeElapsed;
 
@@ -86,7 +86,15 @@ void startCountdown()
 
 void loop() 
 {
-  teamLila();
+  
+    driveForward(100);
+    delay(100);  
+    turnRight(2000);
+    delay(100);
+    driveBackwards(100); 
+  
+  
+  //teamLila();
 //  teamGelb();
 }
 
@@ -97,8 +105,12 @@ void loop()
 
 void teamLila() {
   driveForward(500);
-  turnRight(80);
-  driveForward(1000);
+  servoArmDrehen(90);
+  driveForward(50);
+  turnLeft(80);
+  driveForward(1000); 
+  enabledF = false;  
+  driveForward(400);
     
 }
 
@@ -134,9 +146,11 @@ void servoWuerfelDrehen(int winkel)
   }
 }
 
- void driveForward(int steps)
+ void driveForward(int strecke)
  {
-    
+    //1000 steps sind 26 cm       3846 steps sind 80 cm
+
+    int steps = strecke/80 *3846;
     int accelerationPhase = 200;          // die 100 ersten Steps
     int a = 0; 
     
@@ -176,10 +190,10 @@ void servoWuerfelDrehen(int winkel)
 
 
  
- void driveBackwards(int steps)
+ void driveBackwards(int strecke)
  {
     
-    
+    int steps = strecke/26 *1000;
     int accelerationPhase = 200; 
     int a = 0; 
     
