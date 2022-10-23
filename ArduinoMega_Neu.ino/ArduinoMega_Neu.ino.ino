@@ -89,21 +89,27 @@ void loop() {
 
 
 
-  servoArmDrehen(90);
-  turnFast(77, !istGelb, false);
+  turnFast(77, !istGelb, true);
   delay(500);
   driveFast(3700, true, false); //
   delay(500);
-  turnFast(760, istGelb, false);
+  if (istGelb == true) {
+    turnFast(772, istGelb, false); //gerade linie nach dem Start   
+  }
+  else {
+    turnFast(772, istGelb, false); //gerade linie nach dem Start  
+  }
   delay(500);
-  driveFast(5500, true, false); //
+  servoArmDrehen(90);
+  delay(500);
+  driveFast(5500, true, false); 
   delay(500);
   driveFast(850, true, true);
   delay(500);
   //Wir stehen genau an der Wandschräge im Eck
-  driveFast(600, false, false);
+  /*driveFast(600, false, false);
   delay(500);
-  servoArmDrehen(140);
+  servoArmDrehen(145);
   delay(500);
   driveFast(580, true, true);
   delay(500);
@@ -116,9 +122,13 @@ void loop() {
   turnFast(1000,!istGelb, true);
   delay(500);
   driveFast(100, true, true); 
-  delay(500); 
+  delay(500); */
   servoWuerfelDrehen(180);
-  delay(1000);
+ // while(timeElapsed > 80)
+  //{
+  //  delay(1000);    
+  //}  
+   delay(50000);
   driveFast(700, false, false); 
   delay(1000);
   turnFast(140,istGelb, true);  
